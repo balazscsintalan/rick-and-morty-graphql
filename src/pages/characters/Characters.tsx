@@ -1,8 +1,23 @@
 import * as React from 'react';
 import CharacterCard from './character-card/CharacterCard';
+import useCharacters from '../../query/characters/useCharacters';
 
 const Characters: React.FC = () => {
   const [name, setName] = React.useState<string>();
+  const [filterName, setFilterName] = React.useState<string>();
+
+  const { data, loading } = useCharacters({
+    filter: {
+      name: filterName,
+    },
+  });
+
+  React.useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setFilterName(name);
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [name, setFilterName]);
 
   const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -19,13 +34,15 @@ const Characters: React.FC = () => {
           className="input input-bordered w-full max-w-xs"
         />
       </div>
-      <div className="flex justify-center items-center flex-wrap p-2">
-        <CharacterCard />
-        <CharacterCard />
-        <CharacterCard />
-        <CharacterCard />
-        <CharacterCard />
-      </div>
+      {loading ? (
+        <span>Loading...</span>
+      ) : (
+        <div className="flex justify-center items-center flex-wrap p-2">
+          {data?.characters.results.map((it) => (
+            <CharacterCard key={it.id} character={it} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

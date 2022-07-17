@@ -1,9 +1,12 @@
 import * as React from 'react';
 import StatusIndicator from './StatusIndicator';
+import { Character } from '../../../query/characters/useCharacters';
 
-interface ICharacterCardProps {}
+interface ICharacterCardProps {
+  character: Character;
+}
 
-const CharacterCard: React.FC<ICharacterCardProps> = () => {
+const CharacterCard: React.FC<ICharacterCardProps> = ({ character }) => {
   return (
     <article
       className="bg-gray-600 rounded-xl flex prose-lg
@@ -17,19 +20,19 @@ const CharacterCard: React.FC<ICharacterCardProps> = () => {
           className="object-center object-cover h-full w-fill transition-opacity opacity-100 m-0 w-full
                     sm:rounded-none sm:rounded-l-xl sm:h-full sm:max-h-full
                     rounded-t-xl h-72"
-          src="https://rickandmortyapi.com/api/character/avatar/22.jpeg"
-          alt="rick"
+          src={character.image}
+          alt={character.name}
         />
       </div>
       <div className="basis-3/5 p-3 flex flex-col justify-center">
-        <h2 className="m-0 text-white font-bold">Aqua Rick</h2>
+        <h2 className="m-0 text-white font-bold">{character.name}</h2>
         <h5 className="m-0 text-white">
-          <StatusIndicator status={'unknown'} /> - Fish-Person
+          <StatusIndicator status={character.status} /> - {character.species}
         </h5>
         <h4>Origin:</h4>
-        <p>unknown</p>
+        <p>{character.origin.name}</p>
         <h4>Last known location:</h4>
-        <p>Citadel of Ricks</p>
+        <p>{character.location.name}</p>
       </div>
     </article>
   );

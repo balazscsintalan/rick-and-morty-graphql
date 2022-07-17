@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-type Status = 'unknown' | 'Alive' | 'Dead';
+import { Status } from '../../../query/characters/useCharacters';
 
 interface IStatusIndicatorProps {
   status: Status;
@@ -8,9 +7,9 @@ interface IStatusIndicatorProps {
 
 const getStatusColor = (status: Status) => {
   switch (status) {
-    case 'Alive':
+    case Status.Alive:
       return 'bg-green-600';
-    case 'Dead':
+    case Status.Dead:
       return 'bg-red-700';
     default:
       return 'bg-gray-400';
