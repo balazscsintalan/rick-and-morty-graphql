@@ -8,7 +8,7 @@ function App() {
       <div className="m-auto">
         <div className="text-6xl text-red-600">{count}</div>
         <button
-          className="px-6 py-2 rounded bg-green-800 hover:bg-green-600 text-white"
+          className="btn btn-primary"
           type="button"
           onClick={() => setCount((count) => count + 1)}
         >
