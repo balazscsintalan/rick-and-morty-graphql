@@ -1,13 +1,10 @@
 import { useQuery, gql, QueryResult } from '@apollo/client';
 
 const GET_CHARACTERS = gql`
-  query Characters($filter: FilterCharacter) {
-    characters(filter: $filter) {
+  query Characters($filter: FilterCharacter, $page: Int) {
+    characters(filter: $filter, page: $page) {
       info {
-        count
         pages
-        next
-        prev
       }
       results {
         id
@@ -47,10 +44,7 @@ export interface Character {
 }
 
 interface Info {
-  count: number;
   pages: number;
-  next: number;
-  prev: number;
 }
 
 interface CharacterData {
@@ -64,6 +58,7 @@ interface CharacterVars {
   filter: {
     name: string | undefined;
   };
+  page: number;
 }
 
 const useCharacters = (
