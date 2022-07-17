@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import RickAndMortyIcon from './RickAndMortyIcon';
 
 const Header: React.FC = () => {
   return (
     <div className="navbar bg-base-100">
-      <a className="btn btn-ghost normal-case text-xl" href="/">
+      <Link className="btn btn-ghost normal-case text-xl" to="/">
         <RickAndMortyIcon className="mr-1" />
         Rick And Morty
-      </a>
+      </Link>
     </div>
   );
 };
